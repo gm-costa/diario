@@ -138,9 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django Messages
 
 MESSAGE_TAGS = {
-    constants.DEBUG: 'alert-primary',
-    constants.ERROR: 'alert-danger',
-    constants.INFO: 'alert-info',
-    constants.SUCCESS: 'alert-success',
-    constants.WARNING: 'alert-warning'
+    constants.DEBUG: 'indigo',
+    constants.ERROR: 'red',
+    constants.INFO: 'blue',
+    constants.SUCCESS: 'green',
+    constants.WARNING: 'orange'
 }
