@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block 'title' %}Registrar momentos{% endblock 'title' %}
 {% block 'body' %}
 
 <div class="relative isolate overflow-hidden bg-gray-900 min-h-screen">
@@ -22,37 +22,38 @@
     <div class="max-w-7xl mx-auto py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 px-2 gap-6">
             <div class="bg-slate-200/5 ring ring-1 ring-white/20 rounded-md py-8 px-6">
-                <form action="" method="POST">
+                <form action="{% url 'escrever' %}" method="POST">
+                    {% csrf_token %}
                     <h1 class="text-pretty font-semibold tracking-tight text-white sm:text-4xl">Faça aqui seu registro diário</h1>
                     <br>
+                    {% include "partials/messages.html" %}
                     <div>
                         <label class="block text-sm/6 font-medium text-gray-200">Título</label>
                         <div class="mt-2">
-                        <input type="text" name="titulo" id="titulo" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Título aqui...">
+                        <input type="text" name="titulo" id="titulo" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Título aqui..." value="{{titulo}}">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="mt-2">
                                 <label for="email" class="block text-sm/6 font-medium text-gray-200 mt-2">Tags</label>
                                 <select multiple name="tags" id="tags" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                    <option value="Viagem">Viagem</option>
-                                    <option value="Trabalho">Trabalho</option>
+                                    {% for tag in tags %}
+                                        <option value="{{tag.0}}" {% if tag.0 in tags_selecionadas.0 %}selected{% endif %}>{{tag.0}} - {{tag.1}}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="mt-2">
                                 <label for="email" class="block text-sm/6 font-medium text-gray-200 mt-2">Pessoas</label>
                                 <select multiple name="pessoas" id="pessoas" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                    
-                                    <option value="">Pessoa 1</option>
-                                    
+                                    {% for pessoa in pessoas %}
+                                        <option value="{{pessoa.id}}" {% if pessoa.id in pessoas_selecionadas.0 %}selected{% endif %}>{{pessoa.nome}}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
                         
-                        
-                        
                         <div class="mt-2">
                             <label for="email" class="block text-sm/6 font-medium text-gray-200 mt-2">Texto</label>
-                            <textarea name="texto" id="text" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+                            <textarea name="texto" id="text" class="block w-full rounded-md bg-white px-3 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">{{texto}}</textarea>
                         </div>
 
                     </div>
