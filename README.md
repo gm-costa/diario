@@ -4,7 +4,7 @@
 
 ## Objetivo
 
-    Elaborar seu diário, de forma online, para acessar de qualquer lugar.
+    Gerenciar seu diário de forma online.
 
 ## Sumário
 
@@ -27,7 +27,9 @@
 
 ### Screenshots
 
-
+<img src="screenshots/home.jpg" width="250">| &nbsp;&nbsp;<img src="screenshots/cadastrar_pessoa.jpg" width="250">
+<img src="screenshots/cadrasto_escrita.jpg" width="250">| &nbsp;&nbsp;<img src="screenshots/momentos_diario.jpg" width="250">
+<img src="screenshots/momentos_diario_p2.jpg" width="250">
 
 ### Como executar o projeto
 

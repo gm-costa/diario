@@ -77,7 +77,7 @@ def escrever(request):
                 pessoa_objs = Pessoa.objects.filter(id__in=pessoas_selecionadas)
                 diario.pessoas.add(*pessoa_objs)
                 diario.save()
-                messages.add_message(request, messages.SUCCESS, 'Diário publicado com sucesso.')
+                messages.add_message(request, messages.SUCCESS, 'Registro publicado com sucesso.')
                 return redirect(reverse('escrever'))
         except Exception as e:
             messages.add_message(request, messages.ERROR, f'Erro: {e}')
