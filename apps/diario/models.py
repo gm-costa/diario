@@ -25,6 +25,9 @@ class Diario(models.Model):
 
     def get_tags(self):
         return self.tags.split(',') if self.tags else [] 
+    
+    def get_tags_name(self):
+        return ['Trabalho' if t[0] == 'T' else 'Viagem' for t in self.get_tags()]
 
     def set_tags(self, list_tags, reset=False):
         if not reset:

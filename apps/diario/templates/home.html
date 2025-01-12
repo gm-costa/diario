@@ -68,23 +68,23 @@
     <div class="bg-slate-800">
         <div class="max-w-7xl mx-auto py-6">
             <div class="text-center">
-                <h1 class="text-balance text-2xl font-semibold tracking-tight text-white sm:text-4xl">Suas escritas diárias.</h1>
+                <h1 class="text-balance text-2xl font-semibold tracking-tight text-white sm:text-4xl">Suas escritas diárias</h1>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 mt-6 gap-4">
-                    
-                    <div class="overflow-hidden rounded-lg bg-gray-800 ring-1 ring-white/15">
-                        <img class="h-40 w-full" src="{% static "diario/img/waves.png" %}" alt="">
-                        <div class="p-10">
-                        <div>  
-                            <span class="inline-flex items-center rounded-md bg-indigo-400/10 px-2 py-1 text-xs font-medium text-indigo-400 ring-1 ring-inset ring-indigo-400/30">Viagem</span>  
+                    {% for escrita in ultimas_escritas %}
+                        <div class="overflow-hidden rounded-lg bg-gray-800 ring-1 ring-white/15 {% if forloop.counter == 1 %}lg:rounded-tl-[2rem]{% elif forloop.counter == 3 %}lg:rounded-tr-[2rem] {% endif %}">
+                            <img class="h-40 w-full" src="{% static 'diario/img/waves.png' %}" alt="">
+                            <div class="p-10">
+                            <div>
+                                {% for tag in escrita.get_tags_name %}
+                                    <span class="inline-flex items-center rounded-md bg-indigo-400/10 px-2 py-1 text-xs font-medium text-indigo-400 ring-1 ring-inset ring-indigo-400/30">{{tag}}</span>
+                                {% endfor %}
+                            </div>
+                            <p class="mt-2 text-lg font-medium tracking-tight text-white">{{escrita.titulo}}</p>
+                            <p class="mt-2 max-w-lg text-sm/6 text-gray-400">{{escrita.texto|truncatewords:20}}</p>
+                            </div>
                         </div>
-                            
-                        <p class="mt-2 text-lg font-medium tracking-tight text-white">Viagem para holanda</p>
-                        <p class="mt-2 max-w-lg text-sm/6 text-gray-400">Viajamos para holanda e visitamos de bicicleta ...</p>
-                        </div>
-                    </div>
-                    
-
+                    {% endfor %}
                 </div>
                 <br>
                 <br>
@@ -93,11 +93,10 @@
         </div>
 
     </div>
-    
 
     <div class="bg-gray-900 py-6">
       <div class="text-center">
-        <h1 class="text-balance text-2xl font-semibold tracking-tight text-slate-300 ">Seus dados.</h1>
+        <h1 class="text-balance text-2xl font-semibold tracking-tight text-slate-300 ">Seus dados</h1>
       </div>
 
       <div class="grid grid-cols-2 gap-6 max-w-7xl mx-auto mt-12">
@@ -113,4 +112,48 @@
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: {{nomes|safe}},
+          datasets: [{
+            label: 'Escritas por pessoa',
+            data: {{qtds|safe}},
+            backgroundColor: [
+              'rgba(255, 205, 86, 0.4)', 
+              'rgba(75, 192, 192, 0.4)'
+            ],
+            borderColor: [
+              'rgb(75, 192, 192)',
+              'rgb(54, 162, 235)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        
+      });
+    </script>
+
+
+    <script>
+      const ctx2 = document.getElementById('myChart2');
+
+      new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: {{dias_periodo|safe}},
+          datasets: [{
+            label: 'Escritas por dia',
+            data: {{qtd_escritas|safe}},
+            borderWidth: 1
+          }]
+        },
+        
+      });
+    </script>
+ 
 {% endblock 'body' %}
